@@ -13,7 +13,6 @@ namespace Entities.Concrete
         [Key]
         public  int RentalId  { get; set; }
         public int Id { get; set; }
-
         public int CustomerId { get; set; }
 
         public DateTime RentDate { get; set; }

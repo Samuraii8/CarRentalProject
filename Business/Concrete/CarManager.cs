@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using Business.BusinessAspects.Autofac;
 using Business.Constants;
 using Business.ValidationRules.FulentValidation;
 using Core.Aspects.Autofac.Validation;
@@ -35,6 +36,7 @@ namespace Business.Concrete
             return new SuccessResult(Messages.CarDeleted);
         }
 
+        [SecuredOperation("admin,car.add")]
         [ValidationAspect(typeof(CarValidator))]
         public IResult Add(Car car)
         {
