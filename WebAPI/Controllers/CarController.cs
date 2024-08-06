@@ -39,9 +39,9 @@ namespace WebAPI.Controllers
         [HttpGet("GetCarsById")]
 
 
-        public  IActionResult GetAll(int id)
+        public  IActionResult GetAll(int Id)
         {
-            var result = _carService.GetCarsByBrandId(id);
+            var result = _carService.GetById(Id);
             if (result.Success)
             {
                 return Ok(result);
@@ -66,12 +66,5 @@ namespace WebAPI.Controllers
                 return BadRequest(result);
             }
         }
-
-        
-
-
-
-
-
     }
 }

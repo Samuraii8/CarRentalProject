@@ -2,6 +2,9 @@
 using Business.BusinessAspects.Autofac;
 using Business.Constants;
 using Business.ValidationRules.FulentValidation;
+using Core.Aspects.Autofac.Caching;
+using Core.Aspects.Autofac.Performance;
+using Core.Aspects.Autofac.Transaction;
 using Core.Aspects.Autofac.Validation;
 using Core.CrossCuttingConserns.Validation;
 using Core.Utilities.Results;
@@ -22,9 +25,6 @@ namespace Business.Concrete
     {
         ICarDal _cardal;
 
-       
-      
-
         public CarManager(ICarDal carDal)
         {
             _cardal = carDal;
@@ -36,8 +36,9 @@ namespace Business.Concrete
             return new SuccessResult(Messages.CarDeleted);
         }
 
-        [SecuredOperation("admin,car.add")]
+        [SecuredOperation("car.add,admin")]
         [ValidationAspect(typeof(CarValidator))]
+        [CacheRemoveAspect("ICarService.Get")]
         public IResult Add(Car car)
         {
 
@@ -49,9 +50,12 @@ namespace Business.Concrete
             return new ErorResult();
         }
 
+
+        [CacheAspect]
+        [PerformanceAspect(5)]
         public IDataResult<List<Car>> GetAll()
         {
-            if (DateTime.Now.Hour == 16)
+            if (DateTime.Now.Hour == 10)
             {
                 return new ErorDataResult<List<Car>>(Messages.MaintenanceTime);
             }
@@ -81,6 +85,16 @@ namespace Business.Concrete
             return new SuccessDataResult<List<Car>>(_cardal.GetAll(u => u.DailyPrice >= min && u.DailyPrice <= max), Messages.CarListed);
         }
 
+        [CacheAspect]
+        [PerformanceAspect(5)]
+        public IDataResult<Car> GetById(int carId)
+        {
+            return new SuccessDataResult<Car>(_cardal.Get(c => c.Id == carId));
+        }
+
+        [ValidationAspect(typeof(CarValidator))]
+        [CacheRemoveAspect("ICarService.Get")]
+
         public IResult Update(Car car)
         {
            _cardal.Update(car);
@@ -89,11 +103,24 @@ namespace Business.Concrete
         private IResult CheckIfBrandIdCount(int brandId)
         {
             var result = _cardal.GetAll(p => p.BrandId == brandId).Count;
-            if (result >=3)
+            if (result >=10)
             {
                 return new ErorResult(Messages.CarBrandCountOfCategoryEror);
             }
             return new SuccessResult();
+        }
+        [TransactionScopeAspect]
+        public IResult AddTransactionalTest(Car car)
+        {
+             Add(car);
+
+            if (car.DailyPrice > 1500)
+            {
+                throw new Exception("Test");
+            }
+            Add(car);
+
+           return null;
         }
     }
 }

@@ -40,7 +40,7 @@ namespace Business.DependencyResolvers.Autofac
 
             builder.RegisterType<FileHelper>().As<IFileHelper>().SingleInstance();
 
-            builder.RegisterType<HttpContextAccessor>().As<IHttpContextAccessor>();
+            //builder.RegisterType<HttpContextAccessor>().As<IHttpContextAccessor>();
 
             builder.RegisterType<UserManager>().As<IUserService>();
             builder.RegisterType<EfUserDal>().As<IUserDal>();
