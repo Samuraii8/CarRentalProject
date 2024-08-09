@@ -27,7 +27,7 @@ namespace WebAPI.Controllers
             {
                 return Ok(result);
             }
-            return BadRequest();
+            return BadRequest(result);
         }
         [HttpGet("GetById")]
         public IActionResult GetById(int id)
@@ -37,7 +37,7 @@ namespace WebAPI.Controllers
             {
                 return Ok(result);
             }
-            return BadRequest();    
+            return BadRequest(result);    
         }
         [HttpGet("GetByCarId")]
 
@@ -49,7 +49,7 @@ namespace WebAPI.Controllers
             {
                 return Ok(result);
             }
-            return BadRequest();
+            return BadRequest(result);
         }
 
         [HttpPost("AddCarImage")]
@@ -74,7 +74,7 @@ namespace WebAPI.Controllers
             {
                 return Ok(result);
             }
-            return BadRequest();
+            return BadRequest(result);
         }
         [HttpDelete("DeleteCarImage")]
         public IActionResult Delete([FromForm] IFormFile file, [FromForm] int carId)
@@ -85,7 +85,7 @@ namespace WebAPI.Controllers
             {
                 return Ok(result);
             }
-            return BadRequest();
+            return BadRequest(result);
         }
     }
 }
