@@ -63,7 +63,7 @@ namespace WebAPI.Controllers
             }
             else
             {
-                return BadRequest(result);
+                return BadRequest(result.Message);
             }
         }
     }
