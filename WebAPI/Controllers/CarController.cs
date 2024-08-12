@@ -16,16 +16,26 @@ namespace WebAPI.Controllers
         {
             _carService = carService;
         }
-    
-        
 
 
+        [HttpGet("GetCarDetail")]
+       public IActionResult Getalls()
+        {
+            var result = _carService.GetCarDetails();
+            if(result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest();
+        }
 
 
         [HttpGet("Get All Cars")]
 
         public IActionResult GetAll()
         {
+
+            Thread.Sleep(5000);
 
             var result = _carService.GetAll();
             if (result.Success)
