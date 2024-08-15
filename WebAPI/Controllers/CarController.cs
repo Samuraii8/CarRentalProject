@@ -29,6 +29,18 @@ namespace WebAPI.Controllers
             return BadRequest();
         }
 
+        [HttpPatch("UpdateCars")]
+
+        public IActionResult Update(Car car)
+        {
+            var result = _carService.Update(car);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
 
         [HttpGet("Get All Cars")]
 
@@ -93,6 +105,18 @@ namespace WebAPI.Controllers
         public IActionResult Delete(Car car)
         {
             var result = _carService.Delete(car);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
+        [HttpGet("GetCars By Color ID")]
+        
+        public IActionResult Get(int Id)
+        {
+            var result = _carService.GetCarsByColorId(Id);
             if (result.Success)
             {
                 return Ok(result);
