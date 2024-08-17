@@ -19,13 +19,14 @@ namespace Business.Abstract
         IResult Update(Car car);
 
         //IResult AddTransactionalTest(Car car);
-
+        
 
         IDataResult<Car> GetById(int Id);
 
         IDataResult<List<Car>> GetByUnitPrice(double min, double max);
         IDataResult<List<CarDetailDto>> GetCarDetails();
 
+        IDataResult<List<CarDetailDto>> GetCarDetailByCarId(int Id);
         IDataResult<List<Car>>GetCarsByBrandId(int BrandId);
         IDataResult<List<Car>>GetCarsByColorId(int ColorId);
 

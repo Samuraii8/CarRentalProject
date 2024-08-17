@@ -16,5 +16,6 @@ namespace Entities.DTOs
         public int ModelYear { get; set; }
         public double DailyPrice { get; set; }
         public string? Description { get; set; }
+        public string? ImagePath { get; set; }
     }
 }

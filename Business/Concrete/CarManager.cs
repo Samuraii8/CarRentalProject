@@ -32,6 +32,7 @@ namespace Business.Concrete
 
        public IResult Delete(Car car)
         {
+            
             _cardal.Delete(car);
             return new SuccessResult(Messages.CarDeleted);
         }
@@ -70,6 +71,10 @@ namespace Business.Concrete
             return new SuccessDataResult<List<CarDetailDto>>(_cardal.GetCarDetails());
         }
 
+        public IDataResult<List<CarDetailDto>> GetCarDetailByCarId(int Id)
+        {
+            return new SuccessDataResult<List<CarDetailDto>>(_cardal.GetCarDetailByCarId(Id),Messages.CarListed);
+        }
         public IDataResult<List<Car>> GetCarsByBrandId(int BrandId)
         {
             return new SuccessDataResult<List<Car>>(_cardal.GetAll(c => c.BrandId == BrandId), Messages.CarListed);

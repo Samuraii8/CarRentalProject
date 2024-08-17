@@ -42,7 +42,7 @@ namespace WebAPI.Controllers
         }
 
 
-        [HttpGet("Get All Cars")]
+        [HttpGet("GetAllCars")]
 
         public IActionResult GetAll()
         {
@@ -112,7 +112,7 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
-        [HttpGet("GetCars By Color ID")]
+        [HttpGet("GetCarsByColorId")]
         
         public IActionResult Get(int Id)
         {
